@@ -1,5 +1,7 @@
 extends TileMap
 
+var points: Array[Dictionary] = []
+@export_range(2, 6, 1) var random_starting_points: int = 4
 var x_tile_range: int = ProjectSettings.get_setting("display/window/size/viewport_width") / tile_set.tile_size.x
 var y_tile_range: int = ProjectSettings.get_setting("display/window/size/viewport_height") / tile_set.tile_size.y
 
@@ -9,8 +11,49 @@ func _ready():
 	for x in range(-50, x_tile_range + 50):
 		for y in range(-50, y_tile_range + 50):
 			set_cell(0, Vector2(x, y), 0, Vector2(0, 0))
+	define_points(random_starting_points)
 
+func rand_range(minimum, maximum):
+	return floor(randf_range(0.0, 1.0) * ((maximum) - minimum) + minimum)
+
+func define_points(num_points):
+	var types: Array[Vector2i] = [Vector2i(0,1),Vector2i(1,1),Vector2i(2,1),Vector2i(5,1),Vector2i(6,1),Vector2i(4,2)]
+	for i in range(num_points):
+		var x: int = randi_range(0, x_tile_range)
+		var y: int = randi_range(0, y_tile_range)
+		var type: Vector2i = types.pick_random()
+		types.erase(type)
+		points.append(
+			{
+				"type": type,
+				"x": x,
+				"y": y,
+				"citizens": []
+			}
+		)
+	for x in range(x_tile_range):
+		for y in range(y_tile_range):
+			var lowest_delta: Dictionary = {
+				"point_id": 0,
+				"delta": x_tile_range * y_tile_range
+			}
+			for p in range(len(points)):
+				var delta = abs(points[p]["x"] - x) + abs(points[p]["y"] - y)
+				if delta < lowest_delta["delta"]:
+					lowest_delta = {
+						"point_id": p,
+						"delta": delta
+					}
+				var active_point = points[lowest_delta["point_id"]]
+				var dx = active_point["x"]
+				var dy = active_point["y"]
+				active_point["citizens"].append(
+					{
+						"dx": dx,
+						"dy": dy
+					}
+				)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
