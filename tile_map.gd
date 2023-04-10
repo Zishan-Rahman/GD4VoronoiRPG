@@ -12,6 +12,13 @@ func _ready():
 		for y in range(-50, y_tile_range + 50):
 			set_cell(0, Vector2(x, y), 0, Vector2(0, 0))
 	define_points(random_starting_points)
+	paint_points()
+
+func paint_points():
+	for point in points:
+		set_cell(0, Vector2(point["x"], point["y"]), 0, point["type"])
+		for citizen in point["citizens"]:
+			set_cell(0, Vector2(point["x"] + citizen["dx"], point["y"] + citizen["dy"]), 0, point["type"])
 
 func rand_range(minimum, maximum):
 	return floor(randf_range(0.0, 1.0) * ((maximum) - minimum) + minimum)
