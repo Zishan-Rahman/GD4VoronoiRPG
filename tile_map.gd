@@ -1,6 +1,9 @@
 extends TileMap
 
 var points: Array[Dictionary] = []
+const EUCLIDEAN: String = "Euclidean distance"
+const MANHATTAN: String = "Manhattan distance"
+@export_enum(EUCLIDEAN, MANHATTAN) var distance = MANHATTAN
 @export_range(2, 6, 1) var random_starting_points: int = 4
 var x_tile_range: int = ProjectSettings.get_setting("display/window/size/viewport_width") / tile_set.tile_size.x
 var y_tile_range: int = ProjectSettings.get_setting("display/window/size/viewport_height") / tile_set.tile_size.y
@@ -22,6 +25,14 @@ func paint_points():
 
 func rand_range(minimum, maximum):
 	return floor(randf() * ((maximum) - minimum) + minimum)
+
+func _squared(x):
+	return x ** 2
+
+func calculate_points_delta(x: int, y: int, p: int):
+	if distance == MANHATTAN:
+		return abs(points[p]["x"] - x) + abs(points[p]["y"] - y)
+	return sqrt(_squared(points[p]["x"] - x) + _squared(points[p]["y"] - y))
 
 func define_points(num_points):
 	var types: Array[Vector2i] = [Vector2i(0,1),Vector2i(1,1),Vector2i(2,1),Vector2i(5,1),Vector2i(6,1),Vector2i(4,2)]
@@ -45,7 +56,7 @@ func define_points(num_points):
 				"delta": x_tile_range * y_tile_range
 			}
 			for p in range(len(points)):
-				var delta = abs(points[p]["x"] - x) + abs(points[p]["y"] - y)
+				var delta = calculate_points_delta(x, y, p)
 				if delta < lowest_delta["delta"]:
 					lowest_delta = {
 						"point_id": p,

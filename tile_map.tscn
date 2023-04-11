@@ -1091,3 +1091,5 @@ sources/0 = SubResource("TileSetAtlasSource_6h0bd")
 tile_set = SubResource("TileSet_3drs5")
 format = 2
 script = ExtResource("2_lf4lw")
+distance = "Euclidean distance"
+random_starting_points = 6
