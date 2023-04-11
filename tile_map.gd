@@ -30,9 +30,9 @@ func _squared(x: int) -> int:
 	return x ** 2
 
 func calculate_points_delta(x: int, y: int, p: int) -> float:
-	if distance == MANHATTAN:
-		return abs(points[p]["x"] - x) + abs(points[p]["y"] - y)
-	return sqrt(_squared(points[p]["x"] - x) + _squared(points[p]["y"] - y))
+	if distance == EUCLIDEAN:
+		return sqrt(_squared(points[p]["x"] - x) + _squared(points[p]["y"] - y))
+	return abs(points[p]["x"] - x) + abs(points[p]["y"] - y)
 
 func define_points(num_points: int) -> void:
 	var types: Array[Vector2i] = [Vector2i(0,1),Vector2i(1,1),Vector2i(2,1),Vector2i(5,1),Vector2i(6,1),Vector2i(4,2)]
