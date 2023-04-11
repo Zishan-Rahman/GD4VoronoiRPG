@@ -21,13 +21,13 @@ func paint_points():
 			set_cell(0, Vector2(point["x"] + citizen["dx"], point["y"] + citizen["dy"]), 0, point["type"])
 
 func rand_range(minimum, maximum):
-	return floor(randf_range(0.0, 1.0) * ((maximum) - minimum) + minimum)
+	return floor(randf() * ((maximum) - minimum) + minimum)
 
 func define_points(num_points):
 	var types: Array[Vector2i] = [Vector2i(0,1),Vector2i(1,1),Vector2i(2,1),Vector2i(5,1),Vector2i(6,1),Vector2i(4,2)]
 	for i in range(num_points):
-		var x: int = randi_range(0, x_tile_range)
-		var y: int = randi_range(0, y_tile_range)
+		var x: int = rand_range(0, x_tile_range)
+		var y: int = rand_range(0, y_tile_range)
 		var type: Vector2i = types.pick_random()
 		types.erase(type)
 		points.append(
@@ -52,8 +52,8 @@ func define_points(num_points):
 						"delta": delta
 					}
 				var active_point = points[lowest_delta["point_id"]]
-				var dx = active_point["x"]
-				var dy = active_point["y"]
+				var dx = x - active_point["x"]
+				var dy = y - active_point["y"]
 				active_point["citizens"].append(
 					{
 						"dx": dx,
