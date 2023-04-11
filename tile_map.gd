@@ -26,9 +26,6 @@ func paint_points() -> void:
 		for citizen in point["citizens"]:
 			set_cell(0, Vector2(point["x"] + citizen["dx"], point["y"] + citizen["dy"]), 0, point["type"])
 
-func rand_range(minimum: int, maximum: int) -> int:
-	return floori(randf() * ((maximum) - minimum) + minimum)
-
 func _squared(x: int) -> int:
 	return x ** 2
 
@@ -40,8 +37,8 @@ func calculate_points_delta(x: int, y: int, p: int) -> float:
 func define_points(num_points: int) -> void:
 	var types: Array[Vector2i] = [Vector2i(0,1),Vector2i(1,1),Vector2i(2,1),Vector2i(5,1),Vector2i(6,1),Vector2i(4,2)]
 	for i in range(num_points):
-		var x: int = rand_range(0, x_tile_range)
-		var y: int = rand_range(0, y_tile_range)
+		var x: int = randi_range(0, x_tile_range)
+		var y: int = randi_range(0, y_tile_range)
 		var type: Vector2i = types.pick_random()
 		types.erase(type)
 		points.append(
