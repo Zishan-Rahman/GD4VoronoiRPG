@@ -56,9 +56,6 @@ var y_tile_range: int = ProjectSettings.get_setting("display/window/size/viewpor
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	randomize()
-	for x in range(-50, x_tile_range + 50):
-		for y in range(-50, y_tile_range + 50):
-			set_cell(0, Vector2(x, y), 0, Vector2(0, 0))
 	var start_time: float = Time.get_ticks_msec()
 	define_points(random_starting_points)
 	paint_points()
