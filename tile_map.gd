@@ -44,6 +44,8 @@ var trees: Array[Vector2i] = [
 	Vector2i(3,2),
 	Vector2i(4,2)
 ]
+const PLAYER_SPRITE: Vector2i = Vector2i(24, 7)
+var player_placement_cell: Vector2i
 
 var points: Array[Dictionary] = []
 const EUCLIDEAN: String = "Euclidean distance"
