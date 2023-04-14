@@ -60,9 +60,9 @@ func _ready() -> void:
 	randomize()
 	var start_time: float = Time.get_ticks_msec()
 	define_points(random_starting_points)
+	paint_points()
 	var new_time: float = Time.get_ticks_msec() - start_time
 	print("Time taken: " + str(new_time) + "ms")
-	paint_points()
 
 # ALGORITHM BEGINS HERE
 
