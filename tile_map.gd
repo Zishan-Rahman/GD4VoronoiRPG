@@ -70,7 +70,11 @@ func paint_points() -> void:
 	for point in points:
 		set_cell(0, Vector2(point["x"], point["y"]), 0, point["type"])
 		for citizen in point["citizens"]:
-			set_cell(0, Vector2(point["x"] + citizen["dx"], point["y"] + citizen["dy"]), 0, point["type"])
+			if _is_in_bounds(point["x"], citizen["dx"], point["y"], citizen["dy"]):
+				set_cell(0, Vector2(point["x"] + citizen["dx"], point["y"] + citizen["dy"]), 0, point["type"])
+
+func _is_in_bounds(x: int, dx: int, y: int, dy: int) -> bool:
+	return x + dx >= 0 and x + dx < x_tile_range and y + dy >= 0 and  y + dy < y_tile_range
 
 func _squared(x: int) -> int:
 	return x ** 2
