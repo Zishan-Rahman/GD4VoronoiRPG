@@ -115,6 +115,13 @@ func _physics_process(_delta) -> void:
 	elif Input.is_action_pressed("ui_down"): direction = Vector2i.DOWN
 	elif Input.is_action_pressed("ui_left"): direction = Vector2i.LEFT
 	elif Input.is_action_pressed("ui_right"): direction = Vector2i.RIGHT
+	elif Input.is_action_just_pressed("reset_position"): # Respawn player in a different part of the map
+		player_placement_cell = _get_random_placement_cell()
+		while buildings.has(get_cell_atlas_coords(0, player_placement_cell)): # This time, since we're not STARTING the game, we don't care whether or not the player magically lands on the ring
+			player_placement_cell = _get_random_placement_cell()
+		set_cell(0, player_placement_cell, 0, PLAYER_SPRITE)
+		set_cell(0, previous_cell, 0) # replace the previous sprite
+		return
 	var new_placement_cell: Vector2i = player_placement_cell + direction
 	if (not get_used_cells(0).has(new_placement_cell) or trees.has(get_cell_atlas_coords(0, new_placement_cell)) or new_placement_cell == ring_placement_cell) and _is_not_out_of_bounds(new_placement_cell):
 		player_placement_cell = new_placement_cell
