@@ -57,8 +57,10 @@ var ring_placement_cell: Vector2i
 var points: Array[Dictionary] = []
 const EUCLIDEAN: String = "Euclidean distance"
 const MANHATTAN: String = "Manhattan distance"
+## Determines whether or not the Euclidean or Manhattan distance formula is used for calculation of the deltas between points within Voronoi cells.
 @export_enum(EUCLIDEAN, MANHATTAN) var distance: String = MANHATTAN
-@export_range(10, 40, 1) var random_starting_points: int = 20
+## Determines the number of points randomly picked from at the start. Therefore, it also determines the number of cells in our Voronoi tesselation.
+@export_range(15, 40, 1) var random_starting_points: int = 20
 var x_tile_range: int = ProjectSettings.get_setting("display/window/size/viewport_width") / tile_set.tile_size.x
 var y_tile_range: int = ProjectSettings.get_setting("display/window/size/viewport_height") / tile_set.tile_size.y
 
