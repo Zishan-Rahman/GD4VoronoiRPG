@@ -139,6 +139,9 @@ func _win_game_if_won() -> void:
 
 # ALGORITHM BEGINS HERE
 
+# Used as inspiration: http://pcg.wikidot.com/pcg-algorithm:voronoi-diagram
+# (brute-force implementation in JavaScript, here adapted to GDScript)
+
 func paint_points() -> void:
 	for point in points:
 		set_cell(0, Vector2(point["x"], point["y"]), 0, point["type"])
